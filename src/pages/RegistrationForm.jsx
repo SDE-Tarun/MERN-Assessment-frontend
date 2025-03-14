@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import InputField from "../components/InputField";
 import Dropdown from "../components/Dropdown";
@@ -16,6 +17,8 @@ const cities = {
 };
 
 const RegistrationForm = () => {
+  const navigate = useNavigate(); 
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -75,13 +78,18 @@ const RegistrationForm = () => {
         <Dropdown label="Country" name="country" options={countries} value={form.country} onChange={handleChange} />
         <Dropdown label="State" name="state" options={states[form.country] || []} value={form.state} onChange={handleChange} />
         <Dropdown label="City" name="city" options={cities[form.state] || []} value={form.city} onChange={handleChange} />
+        
         <button type="submit" style={styles.button}>Register</button>
+        
+        <button type="button" style={styles.viewButton} onClick={() => navigate("/users")}>
+          View Registered Users
+        </button>
       </form>
     </div>
   );
 };
 
-// Internal CSS with better styling
+// Internal CSS
 const styles = {
   container: {
     maxWidth: "450px",
@@ -112,23 +120,20 @@ const styles = {
     border: "none",
     borderRadius: "8px",
     cursor: "pointer",
-    transition: "all 0.3s ease",
     fontWeight: "bold",
   },
-  buttonHover: {
-    backgroundColor: "#0056b3",
+  viewButton: {
+    width: "100%",
+    padding: "12px",
+    backgroundColor: "#28a745",
+    color: "#fff",
+    fontSize: "18px",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontWeight: "bold",
+    marginTop: "10px",
   },
 };
-
-// Responsive Design
-window.addEventListener("resize", () => {
-  if (window.innerWidth <= 600) {
-    styles.container.maxWidth = "90%";
-    styles.container.padding = "15px";
-  } else {
-    styles.container.maxWidth = "450px";
-    styles.container.padding = "25px";
-  }
-});
 
 export default RegistrationForm;
