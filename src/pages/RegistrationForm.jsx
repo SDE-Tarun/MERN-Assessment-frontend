@@ -45,7 +45,7 @@ const RegistrationForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${import.meta.env.VITE_API_URL}/register`, form, {
+      await axios.post("https://mern-assessment-backend.onrender.com/register", form, {
         headers: { "Content-Type": "application/json" },
       });
       alert("Registration Successful");
